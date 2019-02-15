@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	
+<appender name="INFO" class="org.apache.log4j.DailyRollingFileAppender">
+<param name="File" value="D:\\logs\\batchprocesses\\ptech\\trace\\BatchTrace.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{dd/MMM/yyyy:HH:mm:ss}] -- %c -- %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>	
+</appender>
+	
+	<!--                          -->
+    <!-- Declare the SMTPAppender -->
+    <!--                          -->
+    <appender name="ERROR"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512" />
+        <param name="SMTPHost" value="localhost" />
+        <param name="From" value="ebpp_ptechBatch@cds-global.com" />
+        <param name="To" value="ebpp_system@cds-global.com" />
+        <param name="Subject" value="[Exception Thrown!] EBPP_PTECH Batch Exception message" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="%nDate: [%d{ISO8601}]%n%nClassName: %C%n%nLocation of log event: %l%n%n%m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+
+
+	<root>
+	    <appender-ref ref="INFO" />
+		<appender-ref ref="ERROR" />		
+	</root>
+
+</log4j:configuration>
+
